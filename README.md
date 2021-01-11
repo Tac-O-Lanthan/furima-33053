@@ -57,7 +57,7 @@
 | postal_code    | string     | null: false       | <!-- 4文字目にハイフンが必要>
 | prefecture_id  | integer    | null: false       |
 | city           | string     | null: false       |
-| addresses      | string     | null: false       |
+| address        | string     | null: false       |
 | building       | string     |                   |
 | phone_number   | string     | null: false       | <!-- 半角英数字9文字以上>
 | buyer          | references | foreign_key: true |
