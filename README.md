@@ -64,4 +64,4 @@
 
 ### Association
 
-- has_one :buyer
+- belongs_to :buyer
