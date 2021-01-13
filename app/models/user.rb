@@ -12,10 +12,6 @@ class User < ApplicationRecord
   validates :first_name_kana, presence: true, format: { with: /\A[ァ-ン]+\z/ }
   validates :birth_date, presence: true
 
-
-
-
-
   # 正規表現
   # /  /    ;正規表現
   # \A \z   ;文頭と文末 （ == ^ $ ）
