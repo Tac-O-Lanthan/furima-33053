@@ -3,20 +3,22 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  with_options presence: true do
   validates :email, uniqueness: true
   validates :password, format: { with: /\A(?=.*?[a-zA-Z])(?=.*?[0-9])[a-zA-Z0-9]{6,}\z/ }
-  validates :nickname, presence: true
-  validates :last_name, presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/ }
-  validates :first_name, presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/ }
-  validates :last_name_kana, presence: true, format: { with: /\A[ァ-ン]+\z/ }
-  validates :first_name_kana, presence: true, format: { with: /\A[ァ-ン]+\z/ }
-  validates :birth_date, presence: true
+  validates :nickname
+  validates :last_name, format: { with: /\A[ぁ-んァ-ン一-龥々ヵヶ]+\z/ }
+  validates :first_name, format: { with: /\A[ぁ-んァ-ン一-龥々ヵヶ]+\z/ }
+  validates :last_name_kana, format: { with: /\A[ァ-ン]+\z/ }
+  validates :first_name_kana, format: { with: /\A[ァ-ン]+\z/ }
+  validates :birth_date
+  end
 
   # 正規表現
   # /  /    ;正規表現
   # \A \z   ;文頭と文末 （ == ^ $ ）
   # [ ]   ;文字クラス指定
-  # ぁ-ん ァ-ン 一-龥   ;全角かなカナ漢字
+  # ぁ-ん ァ-ン 一-龥 々 ヵ ヶ    ;全角かなカナ漢字
   # A-Z a-z 0-9   ;半角英数大小
   # +   ;直前の表現の繰り返し
   # .*?    ;「0回以上（*）」繰り返す「任意の文字列（.）」（最短一致）
