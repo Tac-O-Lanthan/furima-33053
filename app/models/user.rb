@@ -18,6 +18,8 @@ class User < ApplicationRecord
     validates :birth_date
   end
 
+  has_many :items
+
   # 正規表現
   # /  /    ;正規表現
   # \A \z   ;文頭と文末 （ == ^ $ ）
