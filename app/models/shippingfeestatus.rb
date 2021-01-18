@@ -1,4 +1,4 @@
-class Shipping_fee_status < ActiveHash::Base
+class Shippingfeestatus < ActiveHash::Base
   # ApplicationRecord から ActiveHash::Base に変更する必要がある
   self.data = [
     { id: 1, name: '---' },
@@ -7,5 +7,5 @@ class Shipping_fee_status < ActiveHash::Base
   ]
 
   include ActiveHash::Associations
-  has_many :item
+  has_many :items
 end

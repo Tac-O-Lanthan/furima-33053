@@ -1,4 +1,4 @@
-class Sales_status < ActiveHash::Base
+class Salesstatus < ActiveHash::Base
   # ApplicationRecord から ActiveHash::Base に変更する必要がある
   self.data = [
     { id: 1, name: '---' },
@@ -11,5 +11,5 @@ class Sales_status < ActiveHash::Base
   ]
 
   include ActiveHash::Associations
-  has_many :item
+  has_many :items
 end

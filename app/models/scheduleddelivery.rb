@@ -1,4 +1,4 @@
-class Scheduled_delivery < ActiveHash::Base
+class Scheduleddelivery < ActiveHash::Base
   # ApplicationRecord から ActiveHash::Base に変更する必要がある
   self.data = [
     { id: 1, name: '---' },
@@ -8,5 +8,5 @@ class Scheduled_delivery < ActiveHash::Base
   ]
 
   include ActiveHash::Associations
-  has_many :item
+  has_many :items
 end
