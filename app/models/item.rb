@@ -21,10 +21,10 @@ class Item < ApplicationRecord
   has_one_attached :image
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
-  belongs_to :salesstatus
-  belongs_to :shippingfeestatus
+  belongs_to :sales_status
+  belongs_to :shipping_fee_status
   belongs_to :prefecture
-  belongs_to :scheduleddelivery
+  belongs_to :scheduled_delivery
 end
 
 # user_idのNOT FALSEはforeign_key :trueに含まれている
