@@ -1,4 +1,4 @@
-class Salesstatus < ActiveHash::Base
+class SalesStatus < ActiveHash::Base
   # ApplicationRecord から ActiveHash::Base に変更する必要がある
   self.data = [
     { id: 1, name: '---' },
