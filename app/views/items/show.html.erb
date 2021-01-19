@@ -22,16 +22,17 @@
       </span>
     </div>
 
-  <%# 売却済みの場合も表示されない処理は、購入機能実装のあとに追って実装 %>
-  <% if current_user == @item.user %>
-    <%= link_to '商品の編集', "#", method: :get, class: "item-red-btn" %>
-    <p class='or-text'>or</p>
-    <%= link_to '削除', "#", method: :delete, class:'item-destroy' %>
-  <%# 売却済みの場合も表示されない処理は、購入機能実装のあとに追って実装 %>
-  <% elsif user_signed_in? %>
-    <%= link_to '購入画面に進む', "#" ,class:"item-red-btn"%>
+  <% if user_signed_in? %>
+    <%# 売却済みの場合も表示されない処理は、購入機能実装のあとに追って実装 %>
+    <% if current_user == @item.user %>
+      <%= link_to '商品の編集', "#", method: :get, class: "item-red-btn" %>
+      <p class='or-text'>or</p>
+      <%= link_to '削除', "#", method: :delete, class:'item-destroy' %>
+    <% else %>
+      <%# 売却済みの場合も表示されない処理は、購入機能実装のあとに追って実装 %>
+      <%= link_to '購入画面に進む', "#" ,class:"item-red-btn"%>
+    <% end %>
   <% end %>
-
     <div class="item-explain-box">
       <span><%= @item.info %></span>
     </div>
@@ -98,9 +99,7 @@
       後ろの商品 ＞
     </a>
   </div>
-  <%# 詳細ページで表示されている商品のカテゴリー名を表示しましょう %>
   <a href=“#” class=‘another-item’><%= @item.category.name %>をもっと見る</a>
-  <%# //詳細ページで表示されている商品のカテゴリー名を表示しましょう %>
 </div>
 
 <%= render "shared/footer" %>
