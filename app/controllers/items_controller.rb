@@ -48,7 +48,7 @@ class ItemsController < ApplicationController
   def access_normalization
     # 「売却済み商品の編集ページへのアクセスをトップページに送る」処理は「購入履歴モデル」実装のあとに追って実装
 
-    # 「非ログインユーザーのアクセスをログインページに送る」処理と「出品者以外のユーザーのアクセスをトップページに送る」処理
-    redirect_to user_session_path unless current_user == @item.user
+    # 「非ログインユーザーのアクセスと出品者以外のユーザーのアクセスをトップページに送る」処理
+    redirect_to root_path unless current_user == @item.user
   end
 end
