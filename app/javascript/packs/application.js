@@ -7,7 +7,8 @@ require("@rails/ujs").start()
 // require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
-require("../item_new");
+require("../item_price");
+// 1/20) newアクション以外でも利用することがわかるように、ファイル名を「item_new」から「item_price」に訂正。
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
