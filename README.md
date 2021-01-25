@@ -35,9 +35,9 @@
 ### Association
 
 - belongs_to :user
-- has_one :buyer
+- has_one :order
 
-## buyers テーブル
+## orders テーブル
 
 | Column         | Type       | Options           |
 | -------------- | ---------- | ----------------- |
@@ -48,9 +48,9 @@
 
 - belongs_to :user
 - belongs_to :item
-- has_one :order
+- has_one :purchaser
 
-## orders テーブル
+## purchaser テーブル
 
 | Column         | Type       | Options           |
 | -------------- | ---------- | ----------------- |
@@ -60,8 +60,8 @@
 | address        | string     | null: false       |
 | building       | string     |                   |
 | phone_number   | string     | null: false       | <!-- 半角英数字9文字以上>
-| buyer          | references | foreign_key: true |
+| order          | references | foreign_key: true |
 
 ### Association
 
-- belongs_to :buyer
+- belongs_to :order
