@@ -59,9 +59,19 @@
 | city           | string     | null: false       |
 | address        | string     | null: false       |
 | building       | string     |                   |
-| phone_number   | string     | null: false       | <!-- 半角英数字9文字以上>
+| phone_number   | string     | null: false       | <!-- 半角英数字11桁以内>
 | order          | references | foreign_key: true |
 
 ### Association
 
 - belongs_to :order
+
+<!-- *** >
+<!-- 購入機能実装 >
+<!-- 実装予定のモデル（テーブル）名を一部変更して実装しました。（README反映済） >
+<!-- 旧：buyer_table → 新：order_table >
+<!-- 旧：order_table → 新：purchaser_table >
+
+<!-- phone_numberのバリデーションを変更しました >
+<!-- 旧：9字以上 → 新：11字以内 >
+<!-- *** >
