@@ -132,10 +132,13 @@
         <div class='item-img-content'>
           <%= image_tag item.image, class: "item-img" %>
 
-          <%# sold out表示 購入機能実装のあとに追って実装 %>
-          <%# <div class='sold-out'>
+          <%# sold out表示 %>
+          <% if Order.exists?(item_id: item.id) %>
+          <div class='sold-out'>
             <span>Sold Out!!</span>
-          </div> %>
+          </div>
+          <% end %>
+          <%# /sold out表示 %>
 
         </div>
         <div class='item-info'>
@@ -154,8 +157,7 @@
       </li>
     <% end %>
 
-      <%# 商品がない場合は以下のダミー商品が表示されるようにしましょう %>
-      <%# 商品がある場合は表示されないようにしましょう %>
+    <%# 商品ダミー %>
     <% unless Item.exists?%>
       <li class='list'>
         <%= link_to '#' do %>
@@ -174,9 +176,8 @@
         </div>
         <% end %>
       </li>
-      <%# //商品がある場合は表示されないようにしましょう %>
-      <%# //商品がない場合は以下のダミー商品が表示されるようにしましょう %>
     <% end %>
+    <%# 商品ダミー %>
     </ul>
   </div>
   <%# /商品一覧 %>

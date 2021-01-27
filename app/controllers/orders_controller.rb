@@ -1,4 +1,7 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :access_normalization
+
   def index
     @item = Item.find(params[:item_id])
     # params[:id] はエラー。ordersコントローラーに処理が渡ったので、pathから渡されるのは「item_id」
@@ -30,5 +33,12 @@ class OrdersController < ApplicationController
       card: form_save_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def access_normalization
+    # 「売却済み商品への全てのユーザーの購入に関するアクセスをトップページに送る」処理
+    redirect_to root_path if Order.exists?(item_id: params[:item_id])
+    # 「出品者が自身の出品する商品を購入するためのアクセスをトップページに送る」処理
+    redirect_to root_path if current_user == Item.find(params[:item_id]).user
   end
 end
