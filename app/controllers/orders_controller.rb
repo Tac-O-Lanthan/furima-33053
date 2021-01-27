@@ -1,13 +1,15 @@
 class OrdersController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
-    # params[:id]はitemsテーブルの:idを参照する形。ordersコントローラーでは、ordersテーブルの:item_idを参照する形にする必要がある。
+    # params[:id] はエラー。ordersコントローラーに処理が渡ったので、pathから渡されるのは「item_id」
     @form_save = FormSave.new
   end
 
   def create
+    @item = Item.find(params[:item_id])
     @form_save = FormSave.new(form_save_params)
     if @form_save.valid?
+      pay_item
       @form_save.save
       redirect_to root_path
     else
@@ -17,6 +19,16 @@ class OrdersController < ApplicationController
 
   private
   def form_save_params
-    params.require(:form_save).permit(:user_id, :item_id, :postal_code, :prefecture_id, :city, :address, :building, :phone_number, :order_id)
+    params.require(:form_save).permit(:postal_code, :prefecture_id, :city, :address, :building, :phone_number, :order_id).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    # params[:item_id]は「items_path」でparamsに渡されてきたid＝ordersコントローラーでの「item_id」キーを取得している
+  end
+
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: Item.find(params[:item_id]).price,
+      card: form_save_params[:token],
+      currency: 'jpy'
+    )
   end
 end
