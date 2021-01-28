@@ -21,13 +21,16 @@ class OrdersController < ApplicationController
   end
 
   private
+
   def form_save_params
-    params.require(:form_save).permit(:postal_code, :prefecture_id, :city, :address, :building, :phone_number, :order_id).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    params.require(:form_save).permit(:postal_code, :prefecture_id, :city, :address, :building, :phone_number, :order_id).merge(
+      user_id: current_user.id, item_id: params[:item_id], token: params[:token]
+    )
     # params[:item_id]は「items_path」でparamsに渡されてきたid＝ordersコントローラーでの「item_id」キーを取得している
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: Item.find(params[:item_id]).price,
       card: form_save_params[:token],
