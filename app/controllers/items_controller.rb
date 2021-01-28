@@ -54,9 +54,8 @@ class ItemsController < ApplicationController
   end
 
   def access_normalization
-    # 「売却済み商品への全てのユーザーの編集・削除に関するアクセスをトップページに送る」処理
-    redirect_to root_path if Order.exists?(item_id: @item.id)
+    # 「売却済み商品への全てのユーザーの編集・削除に関するアクセスをトップページに送る」処理と、
     # 「非ログインユーザーと出品者以外のユーザーの編集・削除に関するアクセスをトップページに送る」処理
-    redirect_to root_path unless current_user == @item.user
+    redirect_to root_path if Order.exists?(item_id: @item.id) || current_user != @item.user
   end
 end
