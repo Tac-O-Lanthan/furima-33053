@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
+  before_action :set_item
   before_action :authenticate_user!
   before_action :access_normalization
-  before_action :set_item
 
   def index
     # params[:id] はエラー。ordersコントローラーに処理が渡ったので、pathから渡されるのは「item_id」
@@ -41,8 +41,7 @@ class OrdersController < ApplicationController
   def access_normalization
     # 「売却済み商品への全てのユーザーの購入に関するアクセスをトップページに送る」処理と、
     # 「出品者が自身の出品する商品を購入するためのアクセスをトップページに送る」処理
-    set_item
-    redirect_to root_path if Order.exists?(item_id: params[:item_id]) || current_user == @item.user
+    redirect_to root_path if @item.order || current_user == @item.user
   end
 
   def set_item
