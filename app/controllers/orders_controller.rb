@@ -1,15 +1,14 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :access_normalization
+  before_action :set_item
 
   def index
-    @item = Item.find(params[:item_id])
     # params[:id] はエラー。ordersコントローラーに処理が渡ったので、pathから渡されるのは「item_id」
     @form_save = FormSave.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @form_save = FormSave.new(form_save_params)
     if @form_save.valid?
       pay_item
@@ -39,8 +38,12 @@ class OrdersController < ApplicationController
   end
 
   def access_normalization
-    # 「売却済み商品への全てのユーザーの購入に関するアクセスをトップページに送る」処理　と、
+    # 「売却済み商品への全てのユーザーの購入に関するアクセスをトップページに送る」処理と、
     # 「出品者が自身の出品する商品を購入するためのアクセスをトップページに送る」処理
     redirect_to root_path if Order.exists?(item_id: params[:item_id]) || current_user == Item.find(params[:item_id]).user
+  end
+
+  def set_item
+    @item = Item.find(params[:item_id])
   end
 end

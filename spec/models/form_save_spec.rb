@@ -76,6 +76,16 @@ RSpec.describe FormSave, type: :model do
         @form_save.valid?
         expect(@form_save.errors.full_messages).to include "Phone number can't be blank"
       end
+      it '紐付く購入者が必須であること' do
+        @form_save.user_id = nil
+        @form_save.valid?
+        expect(@form_save.errors.full_messages).to include "User can't be blank"
+      end
+      it '紐付く商品が必須であること' do
+        @form_save.item_id = nil
+        @form_save.valid?
+        expect(@form_save.errors.full_messages).to include "Item can't be blank"
+      end
     end
   end
 end
