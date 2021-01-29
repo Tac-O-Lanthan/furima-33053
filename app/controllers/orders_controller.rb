@@ -41,7 +41,8 @@ class OrdersController < ApplicationController
   def access_normalization
     # 「売却済み商品への全てのユーザーの購入に関するアクセスをトップページに送る」処理と、
     # 「出品者が自身の出品する商品を購入するためのアクセスをトップページに送る」処理
-    redirect_to root_path if @item.order.exists? || current_user == @item.user
+    redirect_to root_path if @item.order.present? || current_user == @item.user
+
   end
 
   def set_item

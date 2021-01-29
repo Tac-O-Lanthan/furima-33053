@@ -24,7 +24,7 @@
       </span>
     </div>
 
-  <% unless Order.exists?(item_id: @item.id) %>
+  <% unless Order.exists? %>
     <% if user_signed_in? %>
       <% if current_user == @item.user %>
         <%= link_to '商品の編集', edit_item_path, method: :get, class: "item-red-btn" %>
