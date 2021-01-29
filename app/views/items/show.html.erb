@@ -8,10 +8,12 @@
     </h2>
     <div class='item-img-content'>
       <%= image_tag @item.image ,class:"item-box-img" %>
-      <%# sold out表示 購入機能実装のあとに追って実装 %>
-      <%# <div class='sold-out'>
+      <%# sold out表示 %>
+      <% if Order.exists?(item_id: @item.id) %>
+      <div class='sold-out'>
         <span>Sold Out!!</span>
-      </div> %>
+      </div>
+      <% end %>
     </div>
     <div class="item-price-box">
       <span class="item-price">
@@ -22,17 +24,17 @@
       </span>
     </div>
 
-  <% if user_signed_in? %>
-    <%# 売却済みの場合も表示されない処理は、購入機能実装のあとに追って実装 %>
-    <% if current_user == @item.user %>
-      <%= link_to '商品の編集', edit_item_path, method: :get, class: "item-red-btn" %>
-      <p class='or-text'>or</p>
-      <%= link_to '削除', item_path, method: :delete, class:'item-destroy' %>
-    <% else %>
-      <%# 売却済みの場合も表示されない処理は、購入機能実装のあとに追って実装 %>
-      <%= link_to '購入画面に進む', "#" ,class:"item-red-btn"%>
+  <% unless Order.exists?(item_id: @item.id) %>
+    <% if user_signed_in? %>
+      <% if current_user == @item.user %>
+        <%= link_to '商品の編集', edit_item_path, method: :get, class: "item-red-btn" %>
+        <p class='or-text'>or</p>
+        <%= link_to '削除', item_path, method: :delete, class:'item-destroy' %>
+      <% else %>
+        <%= link_to '購入画面に進む', item_orders_path(@item.id) ,class:"item-red-btn"%>
+      <% end %>
     <% end %>
-  <% end %>
+  <% end %>  
     <div class="item-explain-box">
       <span><%= @item.info %></span>
     </div>
