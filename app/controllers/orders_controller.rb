@@ -29,9 +29,10 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
+    Item.find(params[:item_id])
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
-      amount: Item.find(params[:item_id]).price,
+      amount: @item.price,
       card: form_save_params[:token],
       currency: 'jpy'
     )
@@ -40,7 +41,8 @@ class OrdersController < ApplicationController
   def access_normalization
     # 「売却済み商品への全てのユーザーの購入に関するアクセスをトップページに送る」処理と、
     # 「出品者が自身の出品する商品を購入するためのアクセスをトップページに送る」処理
-    redirect_to root_path if Order.exists?(item_id: params[:item_id]) || current_user == Item.find(params[:item_id]).user
+    set_item
+    redirect_to root_path if Order.exists?(item_id: params[:item_id]) || current_user == @item.user
   end
 
   def set_item
