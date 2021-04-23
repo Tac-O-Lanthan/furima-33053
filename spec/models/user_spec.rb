@@ -4,7 +4,7 @@ RSpec.describe User, type: :model do
   before do
     @user = FactoryBot.build(:user)
   end
-  describe 'ユーザー新規登録' do
+  describe 'ユーザー情報の保存' do
     context '正常系' do
       it 'すべての値が必須であること' do
         expect(@user).to be_valid
